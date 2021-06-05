@@ -1,25 +1,17 @@
 ---
 layout: post
-title: "Write up on Devel from Hackthebox"
-subtitle: "Quick & eazy guide"
-date: 2020-01-26 23:45:13 -0400
+title: "Sample Write-up from Hackthebox"
+subtitle: "Leaning is free."
+date: 2021-06-03 23:45:13 -0400
 background: '/img/posts/htb-devel/htb_wallpaper.jpg'
 ---
 
 
-This is a write up on Hackthebox - Devel. 
+This is a sample write-up. 
 
-```python
-
-python3 code.py
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry
-
-
-
+```bash
+python3 script.py
 ```
-
-This is *sample* code
-
 
 ![Hackthebox-Main page](/img/posts/htb-devel/htb.png)
 
