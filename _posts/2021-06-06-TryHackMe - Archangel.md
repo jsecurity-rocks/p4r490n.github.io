@@ -7,6 +7,7 @@ background: '/img/blue_wave.jpg'
 ---
 
 # Introduction
+*Link to room : https://tryhackme.com/room/archangel*  
 
 This is an easy rated box on **TryHackMe** cybersecurity training platform. The combination of vulnerabilities is a very good practice for **OSCP** exam since it combines common ones - chaining LFI & log poisoning to RCE, exploit of a cronjob and a SUID file. 
 
@@ -277,8 +278,16 @@ Also, when testing for LFI - you can set up Burp Intruder which will automate th
 [**Unix Log locations**](https://github.com/infosec-au/fuzzdb/blob/master/attack-payloads/lfi/common-unix-httpd-log-locations.txt)  
 [**Reverse shell generator**](https://www.revshells.com/)  
 
+<head>
+  <!-- add the button style & script -->
+  <link rel="stylesheet" href="/assets/applause-button.css" />
+  <script src="/assets/applause-button.js"></script>
+</head>
+<body>
+  <!-- add the button! -->
+  <applause-button style="width: 58px; height: 58px;" color="blue" url="https://p4r490n.github.io/2021/06/06/TryHackMe-Archangel.html"/>
+</body>
 
-    
 
 
 
