@@ -1,4 +1,0 @@
-I"‹<h1 id="introduction">Introduction</h1>
-<p>Link to room : https://tryhackme.com/room/archangel<br />
-This is an easy rated box on <strong>TryHackMe</strong> cybersecurity training platform. The combination of vulnerabilities is a very good practice for <strong>OSCP</strong> exam since it combines common ones - chaining LFI &amp; log poisoning to RCE, exploit of a cronjob and a SUID file.</p>
-:ET

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "TryHackMe - Archangel"
-subtitle: "Good practice for OSCP."
+subtitle: "A good practice for OSCP."
 date: 2021-06-05 23:45:13 -0400
 background: '/img/blue_wave.jpg'
 ---
@@ -9,13 +9,13 @@ background: '/img/blue_wave.jpg'
 # Introduction
 *Link to room : https://tryhackme.com/room/archangel*  
 
-This is an easy rated box on **TryHackMe** cybersecurity training platform. The combination of vulnerabilities is a very good practice for **OSCP** exam since it combines common ones - chaining LFI & log poisoning to RCE, exploit of a cronjob and a SUID file. 
+This is a write-up of a easy rated box on **TryHackMe** cybersecurity training platform. The combination of vulnerabilities is a very good practice for **OSCP** exam since it combines common ones - chaining LFI & log poisoning to RCE, exploit of a cronjob and a SUID file. 
 
 # Enumeration
 Thanks to [Ippsec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA) , the initial scan of every box is the same :  
 
 ```bash
-nmap -sV -sC -oA archangel 10.10.95.74
+sudo nmap -sV -sC -oA archangel 10.10.95.74
 ```  
 To clarify:
 

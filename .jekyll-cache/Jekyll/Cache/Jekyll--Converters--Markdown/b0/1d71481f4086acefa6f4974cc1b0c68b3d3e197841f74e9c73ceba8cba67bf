@@ -1,0 +1,149 @@
+I"�<h1 id="introduction">Introduction</h1>
+
+<p>This is a write-up for a retired “easy” HackTheBox machine - Spectra.</p>
+
+<h1 id="enumeration">Enumeration</h1>
+
+<p>Starting of with a standard nmap scan :</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>nmap <span class="nt">-sV</span> <span class="nt">-sC</span> <span class="nt">-oA</span> spectra 10.10.10.229
+</code></pre></div></div>
+
+<p>This reveals :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>22/tcp   open  ssh              OpenSSH 8.1 (protocol 2.0)
+| ssh-hostkey: 
+|_  4096 52:47:de:5c:37:4f:29:0e:8e:1d:88:6e:f9:23:4d:5a (RSA)
+80/tcp   open  http             nginx 1.17.4
+|_http-server-header: nginx/1.17.4
+|_http-title: Site doesn't have a title (text/html).
+3306/tcp open  mysql            MySQL (unauthorized)
+8081/tcp open  blackice-icecap?
+| fingerprint-strings: 
+|   FourOhFourRequest, GetRequest: 
+|     HTTP/1.1 200 OK
+|     Content-Type: text/plain
+|     Date: Tue, 15 Jun 2021 12:52:15 GMT
+|     Connection: close
+|     Hello World
+|   HTTPOptions: 
+|     HTTP/1.1 200 OK
+|     Content-Type: text/plain
+|     Date: Tue, 15 Jun 2021 12:52:21 GMT
+|     Connection: close
+|_    Hello World
+</code></pre></div></div>
+
+<p>After checking port 80 we get the following webpage :</p>
+
+<p><img src="/img/posts/htb-spectra/port80.png" alt="Port 80" /></p>
+
+<p>Clicking on any link opens a new tab - however we cant access it until we add spectra.htb to our /etc/hosts :</p>
+
+<p><img src="/img/posts/htb-spectra/page-not-found.png" alt="Domain not added to /etc/hosts" /></p>
+
+<p>So we can add it :</p>
+
+<p><img src="/img/posts/htb-spectra/adding-new-hosts.png" alt="Adding new entry to /etc/hosts" /></p>
+
+<p>After this we can check the first link and it will lead us to wordpress website :</p>
+
+<p><img src="/img/posts/htb-spectra/domain-init.png" alt="Wordpress revealed" /></p>
+
+<p>After manually enumerating the webpage and login pageI came up with no useful information other than that the wordpress username is <em>administrator</em> which is quite common. I decided to use gobuster :</p>
+
+<p><img src="/img/posts/htb-spectra/gobuster.spectra.png" alt="Gobuster reveals /testing directory" /></p>
+
+<p>Gobuster reveals /testing directory. Lets check it out :</p>
+
+<p><img src="/img/posts/htb-spectra/testing-dir.png" alt="&quot;testing&quot; directory" /></p>
+
+<p>Checking the file <strong>wp.content.save</strong> opens up a new blank page. However after checking the source code with CRTL+U it reveals php code with cleartext credentials :</p>
+
+<p><img src="/img/posts/htb-spectra/cleartext-creds.png" alt="Cleartext credentials" /></p>
+
+<p>The intersting thing is <em>devteam01</em> which could be the password for the wordpress page at <em>http://spectra.htb/main/wp-login.php</em>
+Trying the credentials administrator:devteam01 we are in :</p>
+
+<p><img src="/img/posts/htb-spectra/wplogin.png" alt="Entered administrator's account" /></p>
+
+<h1 id="exploitation">Exploitation</h1>
+
+<p>Now that we are in i decided to use wordpwn.py script - which will create a malicious plugin which we can install and which will send us a reverse shell. Source code available <a href="#Resources">here</a>.</p>
+
+<p><img src="/img/posts/htb-spectra/making-the-payload.png" alt="Generating shell" /></p>
+
+<p>Running this will create <strong>malicious.zip</strong> in the current directory and automatically run the <em>multi/handerl</em> stub from Metasploit.</p>
+
+<p>Only thing we need to do is :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. Upload plugin
+2. Install Plugin
+3. Activate Plugin
+4. Go to http://spectra.htb/main/wp-content/plugins/malicious/wetw0rk_maybe.php
+5. Check our previously set-up listener
+</code></pre></div></div>
+
+<p>Uploading plugin :</p>
+
+<p><img src="/img/posts/htb-spectra/uploadingplugin.png" alt="Uploading the plugin" /></p>
+
+<p>After this click the blue <em>Install</em> button, and after the process is done go to the previously mentioned address:</p>
+
+<p><img src="/img/posts/htb-spectra/reverse-shell-activation.png" alt="Reverse shell activation" /></p>
+
+<p>Then we can check our listener:</p>
+
+<p><img src="/img/posts/htb-spectra/meterpreter-opened.png" alt="Listener" /></p>
+
+<h1 id="privilege-escalation-to-user">Privilege Escalation To User</h1>
+
+<p>After speding some time enumerating i found a file <em>passwd</em> in /etc/autologin. It contained a password:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SummerHereWeCome!!
+</code></pre></div></div>
+
+<p>Checking the /etc/password we can see one user :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>katie:x:20156:20157::/home/katie:/bin/bash
+</code></pre></div></div>
+
+<p>After this lets try to SSH as user <em>katie</em>:</p>
+
+<p><img src="/img/posts/htb-spectra/katie-user.png" alt="User" /></p>
+
+<p>Success.</p>
+
+<h1 id="privilege-escalation-to-root">Privilege Escalation To Root</h1>
+
+<p>First things first. Lets check if we can run something as root - sudo -l:</p>
+
+<p><img src="/img/posts/htb-spectra/sudo.png" alt="Sudo -l successful" /></p>
+
+<p>So we can manage user binaries with initctl and have root privilege by doing so. This is a critical vulnerability which can be easily exploited. All we need to do is:</p>
+
+<ol>
+  <li>Edit the configuration file of the service at /etc/init</li>
+  <li>Start the same service with root privileges</li>
+</ol>
+
+<p>Edit the /etc/initd/test.conf and put the following code:</p>
+
+<p><img src="/img/posts/htb-spectra/script-edit.png" alt="Editing /etc/init/test" /></p>
+
+<p>Now start the service and execute /bin/bash with -p flag:</p>
+
+<p><img src="/img/posts/htb-spectra/root.png" alt="Root" /></p>
+
+<p>Successfully rooted.</p>
+
+<h1 id="conclusion--tips">Conclusion &amp; Tips</h1>
+
+<p>Interesting box which combines the common misconfigurations - plaintext passwords out in the open and a common user having root privileges to a binary which controls the configuration of other binaries. All in all - a good practice.</p>
+
+<h1 id="resources">Resources</h1>
+
+<p><a href="https://github.com/wetw0rk/malicious-wordpress-plugin">Wordpress Malicious Plugin</a></p>
+
+<p><a href="https://isharaabeythissa.medium.com/sudo-privileges-at-initctl-privileges-escalation-technique-ishara-abeythissa-c9d44ccadcb9">SUDO Exploit - /sbin/init</a></p>
+:ET
