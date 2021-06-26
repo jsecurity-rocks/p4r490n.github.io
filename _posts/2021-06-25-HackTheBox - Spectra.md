@@ -162,3 +162,13 @@ Interesting box which combines the common misconfigurations - plaintext password
 [Wordpress Malicious Plugin](https://github.com/wetw0rk/malicious-wordpress-plugin)
 
 [SUDO Exploit - /sbin/init](https://isharaabeythissa.medium.com/sudo-privileges-at-initctl-privileges-escalation-technique-ishara-abeythissa-c9d44ccadcb9)
+
+<head>
+  <!-- add the button style & script -->
+  <link rel="stylesheet" href="/assets/applause-button.css" />
+  <script src="/assets/applause-button.js"></script>
+</head>
+<body>
+  <!-- add the button! -->
+  <applause-button style="width: 58px; height: 58px;" color="blue" url="https://p4r490n.github.io/2021/06/06/TryHackMe-Archangel.html"/>
+</body>

@@ -1,4 +1,4 @@
-I"�<h1 id="introduction">Introduction</h1>
+I"<h1 id="introduction">Introduction</h1>
 
 <p>This is a write-up for a retired “easy” HackTheBox machine - Spectra.</p>
 
@@ -146,4 +146,14 @@ Trying the credentials administrator:devteam01 we are in :</p>
 <p><a href="https://github.com/wetw0rk/malicious-wordpress-plugin">Wordpress Malicious Plugin</a></p>
 
 <p><a href="https://isharaabeythissa.medium.com/sudo-privileges-at-initctl-privileges-escalation-technique-ishara-abeythissa-c9d44ccadcb9">SUDO Exploit - /sbin/init</a></p>
+
+<head>
+  <!-- add the button style & script -->
+  <link rel="stylesheet" href="/assets/applause-button.css" />
+  <script src="/assets/applause-button.js"></script>
+</head>
+<body>
+  <!-- add the button! -->
+  <applause-button style="width: 58px; height: 58px;" color="blue" url="https://p4r490n.github.io/2021/06/06/TryHackMe-Archangel.html" />
+</body>
 :ET
