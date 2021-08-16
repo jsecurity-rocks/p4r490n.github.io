@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "HackTheBox - Armageddon"
-subtitle: "Armageddon."
+subtitle: "AKA Drupalgeddon"
 date: 2021-06-05 23:45:13 -0400
 background: '/img/blue_wave.jpg'
 ---
@@ -200,4 +200,3 @@ Privilege escalation was quite interesting since it involves using an already ma
 [Dirty Sock Exploit explained](https://shenaniganslabs.io/2019/02/13/Dirty-Sock.html)
 
 [Dirty Sock Version 2 - Snapd](https://github.com/initstring/dirty_sock/blob/master/dirty_sockv2.py)
-
