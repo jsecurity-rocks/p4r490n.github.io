@@ -184,6 +184,7 @@ After sending the request we get a reverse shell as **www-data** :
 ![Shell](/img/posts/thm-archangel/shell.png)  
 
 # Elevation to User
+
 After getting this shell the next step is to convert it into a fully interactive tty. This is the following code that I'm using to do this:  
 
 ```bash
@@ -229,6 +230,7 @@ This gives us a shell :
 ![Archangel - user](/img/posts/thm-archangel/archangel_user.png)  
 
 # Privilege Escalation
+
 After setting up our tty, we can see the 2 flags (user.txt & user2.txt) and contents of the **secrets/** directory. There is a SUID inside which runs with **root** privileges when run by the user *Archangel*:  
 
 ![Archangel - flag](/img/posts/thm-archangel/archangel_interesting.png)  
@@ -267,6 +269,7 @@ This returns us the root shell :
 ![Rooted](/img/posts/thm-archangel/proof_txt.png)  
 
 ## Conclusion  & Tips
+
 This was a very interesting box with common vulnerabilites.  
 Thing to note is the different locations of the Apache log file. You can find the resources I used below.  
 Also, when testing for LFI - you can set up Burp Intruder which will automate the process for you (if you supply it with a wordlist).  
