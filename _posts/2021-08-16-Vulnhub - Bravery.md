@@ -320,9 +320,10 @@ The webserver talks to our web server, gets the reverse shell and executes it an
 # Privilege Escalation
 
 
-After setting up a proper tty (check my [Archangel](https://p4r490n.github.io/2021/06/06/TryHackMe-Archangel.html) post) and looking around I noticed at least two ways to escalate privileges. The first one is with using **cp** binary and the other one is usingno_root_squash - a setting that allows a user on the local machine to add files as root to the share - which then gets uploaded to the server. A *really*  bad idea. Let's take a look at escalation number one - the **cp** binary :
+After setting up a proper tty (check my [Archangel](https://p4r490n.github.io/2021/06/06/TryHackMe-Archangel.html) post) and looking around I noticed at least two ways to escalate privileges. The first one is with using **cp** binary and the other one is using no_root_squash - a setting that allows a user on the local machine to add files as root to the share - which then gets uploaded to the server. A *really*  bad idea. Let's take a look at escalation number one - the **cp** binary :
 
 ## Using /usr/bin/cp
+
 
 ```bash
 -rwsr-xr-x. 1 root root 155176 Apr 11  2018 /usr/bin/cp
@@ -330,7 +331,7 @@ After setting up a proper tty (check my [Archangel](https://p4r490n.github.io/20
 -rw-r--r--. 1 root root 130 Jun 23  2018 maintenance.sh
 ```
 
-Since **cp** uses root privileged each time it runs we can copy any file we want and replace anything we want with what we specify.
+Since **cp** uses root privileges each time it runs we can copy any file we want and replace anything we want with what we specify.
 
 The content of maintenance :
 
@@ -384,6 +385,7 @@ uid=0(root) gid=0(root) groups=0(root) context=system_u:system_r:httpd_t:s0
 This is it for the **cp** binary. Now to no_root_squash
 
 ## NFS no_root_squash misconfiguration
+
 
 Since we can copy things over to the previously mounted drive in /mnt on our machine - let's create a C SUID payload, compile it on our machine, make it sticky and execute it over on the vulnerable machine.
 
