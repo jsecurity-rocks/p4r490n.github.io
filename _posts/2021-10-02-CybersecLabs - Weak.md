@@ -247,5 +247,7 @@ This was an easy box with quite common vulnerabilities and a reminder to keep yo
 ## Resources 
 
 [Powershell Base64 endoding script](https://gist.github.com/tothi/ab288fb523a4b32b51a53e542d40fe58)
+
 [Foxglove Security's Rotten Potato Article](https://foxglovesecurity.com/2016/09/26/rotten-potato-privilege-escalation-from-service-accounts-to-system/)
+
 [List of CLSID's by OS](http://ohpe.it/juicy-potato/CLSID/)
