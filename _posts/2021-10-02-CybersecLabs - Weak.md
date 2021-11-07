@@ -6,7 +6,7 @@ date: 2021-10-01 22:45:13 -0400
 background: '/img/blue_wave.jpg'
 ---
 # Introduction
-While being the not-so-popular alternative to HackTheBox and TryHackMe - Cybersec labs also boasts a variety of vulnerable machines which are available for a subscription fee. Feel free to check them out since they have quite a few interesting attack vectors.
+While being the not-so-popular platform as the HackTheBox or TryHackMe - Cybersec labs also boasts a variety of vulnerable machines which are available for a subscription fee. Feel free to check them out since they have quite a few interesting attack vectors.
 
 This particular box uses unrestricted FTP upload to webroot to gain a foothold, and later has two paths to gain a SYSTEM shell.
 
