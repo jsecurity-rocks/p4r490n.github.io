@@ -139,7 +139,9 @@ I would like to give special thanks to the following people since without their 
 - IppSec - his youtube videos, consistency, methodology and overall knowledge are an inspiration
 - TheCyberMentor - for explaining the Buffer Overflows in a very understandable way and for great Privilege Escalation courses
 - Tib3rius - for making the Autorecon tool that I used in exam and for making awesome Privilege Escalation courses
-- Alh4zr3d - for streaming quality content where I learned much about enumeration and Active Directory attacks
+- Alh4zr3d - for streaming quality content where I learned much about enumeration and Active Directory attacks  
+
+
 # Resources that helped me
 - Learning Platforms
     - [TryHackMe](https://tryhackme.com/)
