@@ -30,21 +30,21 @@ After all - one of the easiest ways to help others is to simply share your knowl
 - [Exam report](#exam-report)
 - [What I reccommend to OSCP students](#what-i-reccommend-to-oscp-students)
 - [Plans for the future](#plans-for-the-future)
-- [Special Thanks](#special-thanks)
+- [Special Shoutouts](#special-shoutouts)
 - [Resources that helped me](#resources-that-helped-me)
 
 # Preparation before the first exam attempt
 Since the certification requires some background of all of the areas that I had 0 experience and knowledge about - I decided to take it step by step and split the preparation into phases - firstly by building the foundation and then working my way up to the more complex areas.  
 
 ## 1st Phase - IT foudnation & networking
-I decided to cover the following Comptia's courses with the help of Professor Messer:
+I decided to cover the following Comptia's courses with the help of [**Professor Messer**](https://www.youtube.com/c/professormesser):
 - A+
 - Network +
 - Security+ (only certain topics)
 
 The information I learned from Professor Messer's videos helped me greatly. I was amazed at how well and concise his explanations were, and most interestingly, all of this information is *feely* available on the internet. Note that I did not schedule any exams - I only covered the information that is under Compia's syllabus and I felt that I was ready for the next phase.  
 ## 2nd Phase - Overthewire & Tryhackme
-After getting networking and foundational IT knowledge it was time to step it up. My first online lab environment was Overthewire. With the help of walkthroughs I completed some *wargames* but I learned I would need a more *hold-my-hand* approach - hence I joined TryHackMe.  
+After getting networking and foundational IT knowledge it was time to step it up. My first online lab environment was [**Overthewire**](https://overthewire.org/wargames/). With the help of walkthroughs I completed some *wargames* but I learned I would need a more *hold-my-hand* approach - hence I joined [**TryHackMe**](https://tryhackme.com/).  
 
 This is a platform I highly recommend to the people aspiring to get into pentesting since it is very beginner-friendly. There are many paths you can choose to complete to get a better understanding of the concepts you know nothing or very little about.  
 
@@ -53,8 +53,8 @@ I was on this platform for a month, during which I completed around 20 boxes (mo
 ## 3rd Phase - HackTheBox
 There is a certain character from a famous MMORPG with a famous quote - "You are not prepared!".  
 Oh boy, I was not indeed.  
-As soon as I joined the platform, I was struggling to complete *"easy"* rated boxes. I suppose this is not a surprise, since two months before that I did not know what a Virtual Machine was, right?
-However, there is one pentester that helped me more than I can ever describe - **IppSec**.  
+As soon as I joined [**HackTheBox**](https://www.hackthebox.com/), I was struggling to complete *"easy"* rated boxes. I suppose this is not a surprise, since two months before that I did not know what a Virtual Machine was, right?
+However, there is one pentester that helped me more than I can ever describe - [**IppSec**](https://www.youtube.com/c/ippsec).  
 I watched many of his YouTube videos, learning first hand how his thought process works when enumerating and exploiting machines, and most importantly which tools and techniques he uses. I couldn't recommend his videos enough.  
 I completed around 30 retired boxes on HackTheBox before I decided that I can jump into the OSCP labs.  
 ## 4rd Phase - The OSCP Labs
@@ -62,7 +62,7 @@ Having jumped into OSCP labs after around 2 to 3 months of prior preparation, I 
 
 It was overall a very productive experience, where I built my methodology and enumeration techniques. On a few boxes, I used forum hints since I did not want to lose my time in the lab. During the lab, I actively used the InfoSecPrep server and met many other students who were willing to help with many topics, and I also helped others as much as I could.  
 
-I watched *Tib3rius*'s  and *TheCyberMentor*'s privilege escalation courses and made extensive notes on them.  
+I watched [**Tib3rius**](https://www.udemy.com/course/windows-privilege-escalation/)'s  and [**TheCyberMentor**](https://www.thecybermentor.com/)'s privilege escalation courses and made extensive notes on them.  
 
 I had a hard time following the Buffer Overflow section from the PDF, so I took a look at *TheCyberMentor*'s Youtube Channel and it helped me tremendously. I also practised *BOF* in the TryHackMe's Buffer Overflow prep room that *Tib3rius* made. I can say that this was enough to prepare me for the exam's *BOF* machine.  
 
@@ -88,7 +88,7 @@ On this attempt, I only got the Buffer Overflow and 10 points machine.
 I took this attempt in May of 2021 after the cool off period that Offsec gives after the 2nd failed attempt.  
 As always I started with Buffer Overflow and completed it with ease. I started working on other boxes and focused on 25 point machine. After getting a foothold there I was stuck for quite some time on the privilege escalation. In the meantime, I rooted the other 20 point machine and decided that I will focus the rest of my time back on 25 point one - since I couldn't crack the other 20 and 10 point machines no matter what I tried.  
 
-After nearing the end of my exam somehow I seemed to get a root shell on 25 point machine, however, somehow I was not able to replicate the attack vector. Now I know what you are thinking. How is this even possible? You rooted a box, so you should be able to replicate the attack and that is it!  
+After nearing the end of my exam somehow got a root shell on 25 point machine, however, I was not able to replicate the attack vector. Now I know what you are thinking. How is this even possible? You rooted a box, so you should be able to replicate the attack and that is it!  
 
 While that might be true, what I understood after this attempt is that I was simply lacking the knowledge about certain areas of Windows privilege escalation, plus being awake for more that 24 hours did not help.  
 
@@ -101,7 +101,7 @@ It is safe to say that something *clicked* after my third exam attempt.
 I calmly reevaluated all of my previous attempts and I finally understood where my weaknesses lie and how I can eliminate them. 
 I noted them all down and went through them one by one - from web enumeration to parts of privilege escalation.  As as I did in between all exam attempts - I reactivated my Proving Grounds Subscription, however, this time I also used Cyberseclabs and TryHackMe.  
 
-Cyberseclabs proved to have mostly easy boxes, however, they contain the most common misconfiguration and helped me quite a bit with Windows privilege escalation. I highly recommend checking the platform out.  
+[**CyberSecLabs**](https://www.cyberseclabs.co.uk/) proved to have mostly easy boxes, however, they contain the most common misconfiguration and helped me quite a bit with Windows privilege escalation. I highly recommend checking the platform out.  
 I also started watching *Alh4zr3d* on Twitch and found his content to be very helpful with improving enumeration methodologies.  
 
 # Attempt No. 4
@@ -134,12 +134,12 @@ These are my recommendations as somebody who experienced 3 unsuccessful attempts
    
 # Plans for the future
 After passing the OSCP, I am now even more determined to go for OSWE. One step at a time.
-# Special Thanks
-I would like to give special thanks to the following people since without their content this journey would not be possible.  
-- IppSec - his youtube videos, consistency, methodology and overall knowledge are an inspiration
-- TheCyberMentor - for explaining the Buffer Overflows in a very understandable way and for great Privilege Escalation courses
-- Tib3rius - for making the Autorecon tool that I used in exam and for making awesome Privilege Escalation courses
-- Alh4zr3d - for streaming quality content where I learned much about enumeration and Active Directory attacks  
+# Special Shoutouts
+I would like to give special shoutouts to the following people since without their content this journey would not be possible.  
+- [IppSec](https://www.youtube.com/c/ippsec) - his youtube videos, consistency, methodology and overall knowledge are an inspiration
+- [TheCyberMentor](https://www.youtube.com/c/TheCyberMentor) - for explaining the Buffer Overflows in a very understandable way and for great Privilege Escalation courses
+- [Tib3rius](https://www.twitch.tv/0xtib3rius) - for making the [**Autorecon**](https://github.com/Tib3rius/AutoRecon) tool that I used in exam and for making awesome Privilege Escalation courses
+- [Alh4zr3d](https://www.twitch.tv/alh4zr3d) - for streaming quality content where I learned much about enumeration and Active Directory attacks  
 
 
 # Resources that helped me
