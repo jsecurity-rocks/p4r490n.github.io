@@ -15,8 +15,6 @@ The goal of this article is to help the aspiring OSCPs to analyze what I've done
 After all - one of the easiest ways to help others is to simply share your knowledge. 
 
 # Table of Contents
-- [Why I decided to go for OSCP with 0 IT experience](#why-i-decided-to-go-for-oscp-with-0-it-experience)
-- [Table of Contents](#table-of-contents)
 - [Preparation before the first exam attempt](#preparation-before-the-first-exam-attempt)
   - [1st Phase - IT foudnation & networking](#1st-phase---it-foudnation--networking)
   - [2nd Phase - Overthewire & Tryhackme](#2nd-phase---overthewire--tryhackme)
