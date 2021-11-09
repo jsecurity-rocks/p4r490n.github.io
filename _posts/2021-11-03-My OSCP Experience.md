@@ -92,7 +92,7 @@ While that might be true, what I understood after this attempt is that I was sim
 
 Even though I created the report for this exam attempt in the attempt to try to document what I thought was the correct attack vector, I had major trouble while using LatEx to generate the report, and experienced what we call "technical difficulties" while compiling it from markdown.  Overall, while some may call all of this unlucky, looking back at it I can simply add that being unprepared also had something to do with it.  
 
-# What changed in between 3rd and 4th attempt
+# What changed in between the 3rd and 4th attempt
 I got my first job involving network security as a help desk. This pushed me even harder to complete my OSCP journey.  
 
 It is safe to say that something *clicked* after my third exam attempt.  
@@ -120,7 +120,7 @@ Just around 24 hours later, I got the email that I passed.
 
 
 
-# What I reccommend to OSCP students
+# What I recommend to OSCP students
 These are my recommendations as somebody who experienced 3 unsuccessful attempts.  
 
 1. Make sure to know how to use your time effectively and efficiently. Plan things out in advance, double or triple check your plan, and then execute it. Simple as that.
