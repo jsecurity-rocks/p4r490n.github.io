@@ -19,7 +19,7 @@ After all - one of the easiest ways to help others is to simply share your knowl
   - [1st Phase - IT foudnation & networking](#1st-phase---it-foudnation--networking)
   - [2nd Phase - Overthewire & Tryhackme](#2nd-phase---overthewire--tryhackme)
   - [3rd Phase - HackTheBox](#3rd-phase---hackthebox)
-  - [4rd Phase - The OSCP Labs](#4rd-phase---the-oscp-labs)
+  - [4th Phase - The OSCP Labs](#4rd-phase---the-oscp-labs)
 - [Attempt No. 1](#attempt-no-1)
 - [Attempt No. 2](#attempt-no-2)
 - [Attempt No. 3](#attempt-no-3)
@@ -55,7 +55,7 @@ As soon as I joined [**HackTheBox**](https://www.hackthebox.com/), I was struggl
 However, there is one pentester that helped me more than I can ever describe - [**IppSec**](https://www.youtube.com/c/ippsec).  
 I watched many of his YouTube videos, learning first hand how his thought process works when enumerating and exploiting machines, and most importantly which tools and techniques he uses. I couldn't recommend his videos enough.  
 I completed around 30 retired boxes on HackTheBox before I decided that I can jump into the OSCP labs.  
-## 4rd Phase - The OSCP Labs
+## 4th Phase - The OSCP Labs
 Having jumped into OSCP labs after around 2 to 3 months of prior preparation, I was a bit stumped when I saw the lab environment. It took me some time to get comfortable, though, after 60 days which I had in it, I managed to root 40 boxes.  
 
 It was overall a very productive experience, where I built my methodology and enumeration techniques. On a few boxes, I used forum hints since I did not want to lose my time in the lab. During the lab, I actively used the InfoSecPrep server and met many other students who were willing to help with many topics, and I also helped others as much as I could.  
