@@ -12,4 +12,4 @@ I will be posting write-ups and guides as time permits me.
 
 In the meantime - keep up the grind.
 
-*p4r490n*
+*j*
