@@ -30,13 +30,13 @@ The Pickle module is native to Python, and "Pickling" is the process where a Pyt
 ## Practical use-case
 
 Consider a web application which uses pickled data as the cookie value.
-<br>  
+  
 ![request-burp](/img/posts/serialization-pickle/request.png)
-<br>  
+
 How can we guess this is pickled data? By decoding the "rememberme" cookie value, its visible that it looks like a pickled value:
-<br>  
+ 
 ![rememberme-cookie-value](/img/posts/serialization-pickle/rememberme-cookie-value.png)
-<br>  
+ 
 We can now generate our pickled object to get code execution. This is a sample python code which we can use:
 ```
 import cPickle
@@ -48,13 +48,13 @@ e = exploit()
 print cPickle.dumps(e)
 ```
 Note the result when running the code :
-<br>  
+  
 ![pickled-object](/img/posts/serialization-pickle/pickled-object.png)
-<br>  
+ 
 Since this object is being used by the web application, to ensure data integrity - it is base64 encoded:
-<br>  
+  
 ![b64-pickled_object](/img/posts/serialization-pickle/b64-pickled_object.png)
-<br>  
+  
 Once this is done we can simply set up our listener and paste the b64 payload into the "rememberme" cookie value and after sending the request it will result in code execution - and in this case a reverse shell.
 
 ## Prevention
