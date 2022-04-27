@@ -62,4 +62,4 @@ It is widely considered that unserializing data from an untrusted source or givi
 
 The pickle module is NOT intended to be secure against erroneous or maliciously constructed data. Never unpickle data received from an untrusted or unauthenticated source.
 
-If the application needs to ensure that the data has not been tampered with - consider using HMAC ((Hash-based Message Authentication Code) - which is available as a separate Python module.
+If the application needs to ensure that the data has not been tampered with - consider using HMAC (Hash-based Message Authentication Code) - which is available as a separate Python module.
