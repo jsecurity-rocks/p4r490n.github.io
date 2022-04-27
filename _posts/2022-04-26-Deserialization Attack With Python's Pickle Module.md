@@ -17,7 +17,7 @@ Serialization is a process of converting an object into a stream of bytes to sto
  
 This is done for a variety of reasons, some of them being :
 
--Persistence: storing an object in its current state for later retrieval; eg. App memory gets cleared from RAM upon exit, but the application has serialized and saved the objects to disk before it exited - so it can easily retrieve them laterr
+-Persistence: storing an object in its current state for later retrieval; eg. App memory gets cleared from RAM upon exit, but the application has serialized and saved the objects to disk before it exited - so it can easily retrieve them later
 
 -Ease of communication: two machines running the same code can use serialized objects for communication - one machine can build an object and serialize it and then send it over to the other machine
 
