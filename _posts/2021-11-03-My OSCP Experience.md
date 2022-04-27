@@ -10,7 +10,7 @@ Since I always had a "thing" for computers and technology and understanding how 
 The only "minor" issue in this story is that I did not have *any* programming, networking, system administration, Linux or Windows security practices and pentesting experience.  
 To bridge the gap between what I know and what I don't know - I knew I would have to have a solid plan, determination, and be ready to put in the time.   
 
-The goal of this article - to help the aspiring OSCPs to analyze what I've done and gather useful information which later they can use.
+The goal of this article is to help the aspiring OSCPs to analyze what I've done and gather useful information which later they can use.
 
 After all - one of the easiest ways to help others is to simply share your knowledge. 
 
