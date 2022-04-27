@@ -12,9 +12,9 @@ background: '/img/bg-about.jpg'
 ## Serialization explained
 
 Serialization is a process of converting an object into a stream of bytes to store the object or transmit it to memory, a database, or a file.
-<br>  
+ 
 ![packing-serialization](/img/posts/serialization-pickle/c-sharp-serialization.png)
-<br>  
+ 
 This is done for a variety of reasons, some of them being :
 
 -Persistence: storing an object in its current state for later retrieval; eg. App memory gets cleared from RAM upon exit, but the application has serialized and saved the objects to disk before it exited - so it can easily retrieve them later
