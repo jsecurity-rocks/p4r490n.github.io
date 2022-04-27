@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Deserialization Attack Using Python's Pickle Module"
+title: "Deserialization Attack With Pickle"
 subtitle: "And a practical use-case"
 date: 2022-04-27 09:00:00 -0400
 background: '/img/bg-about.jpg'
