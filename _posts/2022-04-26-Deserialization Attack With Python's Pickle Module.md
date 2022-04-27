@@ -27,7 +27,6 @@ This is done for a variety of reasons, some of them being :
 
 The Pickle module is native to Python, and "Pickling" is the process where a Python object is converted into a byte stream, and "Depickling" is the opposite - where a byte stream is converted back to an object.
 
-
 ## Practical use-case
 
 Consider a web application which uses pickled data as the cookie value.
@@ -39,7 +38,6 @@ How can we guess this is pickled data? By decoding the "rememberme" cookie value
 ![rememberme-cookie-value](/img/posts/serialization-pickle/rememberme-cookie-value.png)
 <br>  
 We can now generate our pickled object to get code execution. This is a sample python code which we can use:
-
 ```
 import cPickle
 import os
@@ -49,7 +47,6 @@ class exploit(object):
 e = exploit()
 print cPickle.dumps(e)
 ```
-
 Note the result when running the code :
 <br>  
 ![pickled-object](/img/posts/serialization-pickle/pickled-object.png)
@@ -61,7 +58,6 @@ Since this object is being used by the web application, to ensure data integrity
 Once this is done we can simply set up our listener and paste the b64 payload into the "rememberme" cookie value and after sending the request it will result in code execution - and in this case a reverse shell.
 
 ## Prevention
-
 It is widely considered that unserializing data from an untrusted source or giving the users ability control over the objects is a bad idea.
 
 The pickle module is NOT intended to be secure against erroneous or maliciously constructed data. Never unpickle data received from an untrusted or unauthenticated source.
