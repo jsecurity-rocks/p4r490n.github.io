@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "Deserialization Attack With Pickle"
+title: "Deserialization Attack With Python's Pickle"
 subtitle: "And a practical use-case"
 date: 2022-04-26 09:00:00 -0400
 background: '/img/bg-about.jpg'
 ---
-# Deserialization Attack Using Python's Pickle Module
+# Deserialization Attack With Python's Pickle
 
 ![python-pickle-logo.png](/img/posts/serialization-pickle/python-pickle-800x200.png)
 
@@ -23,7 +23,7 @@ This is done for a variety of reasons, some of them being :
 
 -Network transmission: serialized objects are used by web applications to ensure faster data transmission and integrity
 
-## Python's pickle module
+## Python's Pickle module
 
 The Pickle module is native to Python, and "Pickling" is the process where a Python object is converted into a byte stream, and "Depickling" is the opposite - where a byte stream is converted back to an object.
 
